@@ -363,7 +363,7 @@ async function handleEvent(event) {
         if (selectedItem && (selectedItem.includes('レバー') || selectedItem.includes('回路'))) {
           return await client.replyMessage(event.replyToken, {
             type: 'text',
-            text: '解読したレバー回路のコードをカタカナで入力してね'
+            text: '解読した【レバー回路のコード】をカタカナで入力してね'
           });
         }
 
