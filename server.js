@@ -31,7 +31,7 @@ function saveData(data) {
 
 let db = loadData();
 
-const BASE_URL = 'https://hvgrz6rc-3000.jpe1.devtunnels.ms';
+const BASE_URL = 'https://dasshutsu-game.onrender.com';
 
 app.post('/webhook', express.json(), (req, res) => {
   res.status(200).end(); // 最速でLINEに200 OKを返す
