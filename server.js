@@ -1,7 +1,5 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
-const fs = require('fs');
-const fsPromises = require('fs').promises; // ★非同期用
 
 const config = {
   channelAccessToken: 'ZbuxHHesp2qRAGo+TcGRMOLHKhc+AxlLnWDMNTlYva+HtwLhv+Ohn4ise4dxqPo0ZBAF/jSxmSvktt/ijc39gEYxpiOo5qEG5L8BBWNmUQkNHLNh5X3KJZ9Hdtm3RTPPfUFRUHxxizRfEMqsqxth1gdB04t89/1O/w1cDnyilFU=',
@@ -13,25 +11,43 @@ const app = express();
 
 app.use(express.static('public'));
 
-const DB_FILE = './db.json';
+// ★ご自身の Bin ID と Master Key を設定してください
+const JSONBIN_BIN_ID = 'ここにBin IDを貼り付け';
+const JSONBIN_API_KEY = 'ここにMaster Keyを貼り付け';
 
-function loadData() {
+let db = {};
+
+// クラウドからデータを読み込む
+async function loadData() {
   try {
-    if (fs.existsSync(DB_FILE)) return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+      headers: { 'X-Master-Key': JSONBIN_API_KEY }
+    });
+    const data = await res.json();
+    db = data.record || {};
   } catch (e) {
     console.error('DB読み込みエラー:', e);
   }
-  return {};
 }
 
-// ★非同期保存（LINEへの返信を待たせない）
-function saveData(data) {
-  fsPromises.writeFile(DB_FILE, JSON.stringify(data, null, 2)).catch(e => {
+// クラウドにデータを保存する（非同期実行）
+async function saveData() {
+  try {
+    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': JSONBIN_API_KEY
+      },
+      body: JSON.stringify(db)
+    });
+  } catch (e) {
     console.error('DB保存エラー:', e);
-  });
+  }
 }
 
-let db = loadData();
+// サーバー起動時にクラウドからデータを取得
+loadData();
 
 const BASE_URL = 'https://dasshutsu-game.onrender.com';
 
@@ -39,7 +55,6 @@ app.post('/webhook', express.json(), async (req, res) => {
   res.status(200).end(); // 最速でLINEに200 OKを返す
   const events = req.body.events || [];
   
-  // イベントごとのエラーが全体に波及しないように個別に安全実行
   for (const event of events) {
     try {
       await handleEvent(event);
@@ -73,7 +88,7 @@ async function handleEvent(event) {
       if (text.includes('nazono箱')) {
         if (!db[userId].includes('謎の箱')) {
           db[userId].push('謎の箱');
-          saveData(db);
+          saveData();
         }
 
         return await client.replyMessage(event.replyToken, [
@@ -99,7 +114,7 @@ async function handleEvent(event) {
 
         if (!db[userId].includes('謎の鍵')) {
           db[userId].push('謎の鍵');
-          saveData(db);
+          saveData();
         }
 
         return await client.replyMessage(event.replyToken, [
@@ -133,7 +148,7 @@ async function handleEvent(event) {
       if (text.includes('カベ') || text.includes('壁')) {
         if (!db[userId].includes('レバー回路装置')) {
           db[userId].push('レバー回路装置');
-          saveData(db);
+          saveData();
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
@@ -144,7 +159,7 @@ async function handleEvent(event) {
       if (text.includes('ヒキダシ') || text.includes('引き出し') || text.includes('ひきだし')) {
         if (!db[userId].includes('園内共通のマスターキー')) {
           db[userId].push('園内共通のマスターキー');
-          saveData(db);
+          saveData();
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
@@ -190,7 +205,7 @@ async function handleEvent(event) {
       if (text.includes('テーブル')) {
         if (!db[userId].includes('鏡')) {
           db[userId].push('鏡');
-          saveData(db);
+          saveData();
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
@@ -201,7 +216,7 @@ async function handleEvent(event) {
       if (text.includes('自分達') || text.includes('ジブンタチ') || text.includes('私達') || text.includes('ワタシタチ')|| text.includes('ペンギン')|| text.includes('レッサーパンダ')|| text.includes('ウサギ')|| text.includes('ゾウ') ) {
         if (!db[userId].includes('mirror_self')) {
           db[userId].push('mirror_self');
-          saveData(db);
+          saveData();
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
@@ -219,7 +234,7 @@ async function handleEvent(event) {
       if (text.includes('ゴクラクチョウ') || text.includes('極楽鳥')) {
         if (!db[userId].includes('mirror_bird')) {
           db[userId].push('mirror_bird');
-          saveData(db);
+          saveData();
         }
         return await client.replyMessage(event.replyToken, [
           {
@@ -371,12 +386,12 @@ async function handleEvent(event) {
             !i.includes('箱') && 
             !i.includes('鍵')
           );
-          saveData(db);
+          saveData();
 
           return await client.replyMessage(event.replyToken, [
             {
               type: 'text',
-              text: '『謎の鍵』で『謎の箱』を開けた！中から脱出用の仕掛けが作動した！'
+              text: '『謎の鍵』で『謎の箱』を開けた！\n中から脱出用の仕掛けが作動した！'
             },
             {
               type: 'text',
