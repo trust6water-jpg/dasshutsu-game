@@ -148,7 +148,7 @@ async function handleEvent(event) {
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
-          text: '【園内共通のマスターキー】を手に入れた！\n※マスターキーは動物園入り口以外の園内の建物なら、なんでも開閉できるよ\n（「持ち物」と入力すれば、使用する画面が出てくるよ）'
+          text: '【園内共通のマスターキー】を手に入れた！\n※マスターキーは動物園入り口以外の園内の建物なら、なんでも開閉できるよ。\n使えそうな場所は【管理室のマップ】から探してね！\n（「持ち物」と入力すれば、使用する画面が出てくるよ）'
         });
       }
 
@@ -334,7 +334,7 @@ async function handleEvent(event) {
         if (selectedItem === '園内共通のマスターキー') {
           return await client.replyMessage(event.replyToken, {
             type: 'text',
-            text: 'どこで使用しますか？\n（使えそうな場所を【管理室のマップ】から探して、カタカナで場所を入力してね）'
+            text: 'どこで使用しますか？\n（カタカナで場所を入力してね）'
           });
         }
 
