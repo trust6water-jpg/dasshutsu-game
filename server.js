@@ -183,7 +183,7 @@ async function handleEvent(event) {
           },
           {
             type: 'text',
-            text: '黒い鳥がライオンの後ろ姿を見にいってくれたみたいだ！'
+            text: 'どうやら違うようだ。\nでも、何かに気づいた黒い鳥がライオンの後ろ姿を見にいってくれたみたいだよ！'
           }
         ]);
       }
@@ -363,7 +363,7 @@ async function handleEvent(event) {
         if (selectedItem && (selectedItem.includes('レバー') || selectedItem.includes('回路'))) {
           return await client.replyMessage(event.replyToken, {
             type: 'text',
-            text: 'レバー回路起動のコードをカタカナで入力してね'
+            text: '解読したレバー回路のコードをカタカナで入力してね'
           });
         }
 
@@ -436,7 +436,7 @@ async function sendInventoryFlex(replyToken, userId) {
           style: 'primary',
           action: {
             type: 'postback',
-            label: '使用する',
+            label: 'ここを押す',
             data: `action=use_item&item=${encodeURIComponent(item)}`
           }
         }
