@@ -148,7 +148,7 @@ async function handleEvent(event) {
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
-          text: '【園内共通のマスターキー】を手に入れた！\n（「持ち物」と入力すれば、使用する画面が出てくるよ）\n（※マスターキーは園内の建物なら、なんでも開閉できるよ）'
+          text: '【園内共通のマスターキー】を手に入れた！\n※マスターキーは園内の建物なら、なんでも開閉できるよ\n（「持ち物」と入力すれば、使用する画面が出てくるよ）'
         });
       }
 
