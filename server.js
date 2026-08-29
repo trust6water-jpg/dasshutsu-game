@@ -152,7 +152,7 @@ async function handleEvent(event) {
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
-          text: '入り口のシャッターを解放できる【レバー回路装置】があった。\n起動するにはコードを入力しないといけないようだ…\n（※コードを入力する際は「持ち物」と入力して「レバー回路装置」を選択してね）'
+          text: '入り口のシャッターを解放できる【レバー回路装置】があった。\n\n起動するにはコードを入力しないといけないようだ…\n（※コードを入力する際は「持ち物」と入力して「レバー回路装置」を選択してね）'
         });
       }
 
@@ -163,7 +163,7 @@ async function handleEvent(event) {
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
-          text: '【園内共通のマスターキー】を手に入れた！\n※マスターキーは動物園入り口以外の園内の建物なら、なんでも開閉できるよ。\n使えそうな場所は【管理室のマップ】から探してね！\n（「持ち物」と入力すれば、使用する画面が出てくるよ）'
+          text: '【園内共通のマスターキー】を手に入れた！\n※マスターキーは動物園入り口以外の園内の建物なら、なんでも開閉できるよ。\n\n使えそうな場所は【管理室のマップ】から探してね！\n（「持ち物」と入力すれば、使用する画面が出てくるよ）'
         });
       }
 
@@ -209,7 +209,7 @@ async function handleEvent(event) {
         }
         return await client.replyMessage(event.replyToken, {
           type: 'text',
-          text: '『鏡』を手に入れた！（いつでも使えるよ。使う時は「持ち物」と入力してね）'
+          text: '『鏡』を手に入れた！\n（いつでも使えるよ。使う時は「持ち物」と入力してね）'
         });
       }
 
@@ -290,7 +290,7 @@ async function handleEvent(event) {
       if (text.includes('シイクインシツ') || text.includes('飼育員室')) {
         return await client.replyMessage(event.replyToken, {
           type: 'text',
-          text: '飼育員室に入った！\n【飼育員の日誌】があった。\n（※鳥にこの画面を見せに行こう）'
+          text: '飼育員室に入った！\n【飼育員の日誌】があった。\n\n（※鳥にこの画面を見せに行こう）'
         });
       }
 
@@ -326,14 +326,14 @@ async function handleEvent(event) {
         if (hasSelf && hasBird) {
           return await client.replyMessage(event.replyToken, {
             type: 'text',
-            text: '🎉 大成功！\n鳥の姿になっていた飼育員さんも、鏡の力で無事に人間の姿へ戻ることができました。\nもちろん、あなたたちも元の姿を取り戻すことに成功！\n飼育員さんと一緒に動物園から脱出することができました。\nこれにて、夜の動物園からの脱出成功です！'
+            text: '🎉 大成功！超ハッピーエンド！！\n\n鳥の姿になっていた飼育員さんも、鏡の力で無事に人間の姿へ戻ることができました。\nもちろん、あなたたちも元の姿を取り戻すことに成功！\n飼育員さんと一緒に動物園から脱出することができました。\nこれにて、夜の動物園からの脱出成功です！'
           });
         }
 
         if (hasSelf && !hasBird) {
           return await client.replyMessage(event.replyToken, {
             type: 'text',
-            text: '🎉 元の姿に戻ることができた！\nあなたたちは鏡の力を使って、無事に元の姿へ戻ることができました。\nそして、そのまま動物園から脱出することにも成功しました！\n……どうやら、これで一件落着（？）のようです。\nおめでとうございます！！'
+            text: '🎉 元の姿に戻ることができた！\nあなたたちは鏡の力を使って、無事に元の姿へ戻ることができました。\nそして、そのまま動物園から脱出することにも成功しました！\n\n……どうやら、これで一件落着（？）のようです。\nおめでとうございます👏！！'
           });
         }
 
