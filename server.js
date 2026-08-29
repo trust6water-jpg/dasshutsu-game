@@ -130,20 +130,6 @@ async function handleEvent(event) {
         return await sendStaffKanriFlex(event.replyToken);
       }
 
-      if (text.includes('マイク')) {
-        return await client.replyMessage(event.replyToken, {
-          type: 'text',
-          text: '【園内放送用マイク】があった。\nしかし、壊れているようだ'
-        });
-      }
-
-      if (text.includes('モニター')) {
-        return await client.replyMessage(event.replyToken, {
-          type: 'text',
-          text: '【監視モニター】のようだ。\n調べてみると、静かな動物園の風景が流れているのをみることができる。'
-        });
-      }
-
       if (text.includes('カベ') || text.includes('壁')) {
         if (!db[userId].includes('レバー回路装置')) {
           db[userId].push('レバー回路装置');
@@ -212,7 +198,7 @@ async function handleEvent(event) {
         });
       }
 
-      if (text.includes('自分達') || text.includes('ジブンタチ') || text.includes('私達') || text.includes('ワタシタチ')) {
+      if (text.includes('自分達') || text.includes('ジブンタチ') || text.includes('私達') || text.includes('ワタシタチ')|| text.includes('ペンギン')|| text.includes('レッサーパンダ')|| text.includes('ウサギ')|| text.includes('ゾウ') ) {
         if (!db[userId].includes('mirror_self')) {
           db[userId].push('mirror_self');
           saveData(db);
@@ -223,7 +209,7 @@ async function handleEvent(event) {
         });
       }
 
-      if (text.includes('ホカノドウブツ') || text.includes('ホカノドウブツタチ') || text.includes('ベツノドウブツタチ') || text.includes('ベツノドウブツ')) {
+      if (text.includes('ホカノドウブツ') || text.includes('ホカノドウブツタチ') || text.includes('ベツノドウブツタチ') || text.includes('ベツノドウブツ')|| text.includes('クマ')|| text.includes('ネコ') ) {
         return await client.replyMessage(event.replyToken, {
           type: 'text',
           text: '変化はなかったようだ…'
@@ -348,7 +334,7 @@ async function handleEvent(event) {
         if (selectedItem === '園内共通のマスターキー') {
           return await client.replyMessage(event.replyToken, {
             type: 'text',
-            text: 'どこで使用しますか？（カタカナで場所を入力してね）\n〈探索可能箇所〉\n園長室、飼育員室'
+            text: 'どこで使用しますか？（カタカナで場所を入力してね）\n〈探索可能箇所〉\nエンチョウシツ、シイクインシツ'
           });
         }
 
@@ -394,7 +380,7 @@ async function handleEvent(event) {
             },
             {
               type: 'text',
-              text: '🎉 檻からの脱出成功！！\n※スタッフにこの画面を見せてください。'
+              text: '🎉 檻からの脱出成功！！\n※鳥にこの画面を見せてください。'
             }
           ]);
         } else {
