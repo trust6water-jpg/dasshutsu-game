@@ -12,8 +12,8 @@ const app = express();
 app.use(express.static('public'));
 
 // ★ご自身の Bin ID と Master Key を設定してください
-const JSONBIN_BIN_ID = 'ここにBin IDを貼り付け';
-const JSONBIN_API_KEY = 'ここにMaster Keyを貼り付け';
+const JSONBIN_BIN_ID = '6a926d64da38895dfe1f0692';
+const JSONBIN_API_KEY = '$2a$10$UfzCnji2r2eFh1Xz.FqA4eHMZfwAeOAUf9gGcBuixJLbynSZxJ0qa';
 
 let db = {};
 
