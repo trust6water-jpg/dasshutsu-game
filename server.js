@@ -436,7 +436,7 @@ async function sendInventoryFlex(replyToken, userId) {
           style: 'primary',
           action: {
             type: 'postback',
-            label: 'ここを押す',
+            label: '使用する',
             data: `action=use_item&item=${encodeURIComponent(item)}`
           }
         }
